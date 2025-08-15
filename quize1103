@@ -1,0 +1,339 @@
+
+
+
+
+Work From Home Quiz
+
+
+  body {
+    margin: 0; padding: 0;
+    font-family: Arial, sans-serif;
+    background: #fff;
+  }
+  .quiz-container {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+  .quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  #timer {
+    color: #d32f2f;
+    font-weight: bold;
+  }
+  #progress-bar-wrap {
+    flex: 1;
+    margin-right: 15px;
+  }
+  #progress-label {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+  }
+  #progress-bar {
+    background: #e0e0e0;
+    border-radius: 6px;
+    height: 9px;
+    overflow: hidden;
+  }
+  #progress {
+    height: 100%;
+    width: 0%;
+    background: #4caf50;
+    transition: width 0.5s ease;
+  }
+  #question-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #222;
+  }
+  #options-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  #options-list li {
+    margin-bottom: 10px;
+  }
+  button.option-btn {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    background: #f4f4f4;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  button.option-btn:hover:not(:disabled) {
+    background: #e6f0ff;
+    transform: scale(1.02);
+  }
+  .option-label {
+    min-width: 32px;
+    margin-right: 12px;
+    background: #1976d2;
+    color: #fff;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 5px;
+    user-select: none;
+  }
+  button.option-btn.correct {
+    background: #4caf50 !important;
+    color: #fff;
+  }
+  button.option-btn.wrong {
+    background: #f44336 !important;
+    color: #fff;
+  }
+  #feedback {
+    margin-top: 15px;
+    font-weight: bold;
+    min-height: 26px;
+  }
+  #correct-answer {
+    margin-top: 8px;
+    font-weight: bold;
+    color: #1565c0;
+    min-height: 22px;
+  }
+  #next-btn,
+  #retry-btn {
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    background: #1976d2;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(25, 118, 210, 0.5);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  #next-btn:hover,
+  #retry-btn:hover {
+    background: #125a9e;
+    transform: scale(1.05);
+  }
+  #result-box {
+    text-align: center;
+  }
+
+
+
+
+
+  
+    
+      
+      
+    
+    
+  
+  
+  
+  
+  
+  Next ➡
+
+
+
+  🎉 Quiz Finished
+  Your Score: /
+  🔄 Retry
+
+
+
+const quizData = [
+  {
+    q: "What has given rise to the work from home trend?",
+    options: [
+      "decreased internet accessibility",
+      "advancements in communication technology",
+      "increased office spaces",
+      "strict government regulations"
+    ],
+    ans: 1
+  },
+  {
+    q: "What is a key benefit of the work from home model?",
+    options: [
+      "increased commuting stress",
+      "reduced flexibility",
+      "enhanced work-life balance",
+      "limited job satisfaction"
+    ],
+    ans: 2
+  },
+  {
+    q: "What challenge might remote workers face?",
+    options: [
+      "enhanced work-life balance",
+      "isolation",
+      "well-defined work-life boundaries",
+      "efficient communication systems"
+    ],
+    ans: 1
+  },
+  {
+    q: "How does remote work promote diversity?",
+    options: [
+      "by limiting the talent pool",
+      "by fostering inclusivity",
+      "by reducing flexibility",
+      "by encouraging commuting stress"
+    ],
+    ans: 1
+  },
+  {
+    q: "What must companies address for the long-term success of work from home?",
+    options: [
+      "increased work-life boundaries",
+      "enhanced communication systems",
+      "limited job satisfaction",
+      "decreased flexibility"
+    ],
+    ans: 1
+  },
+  {
+    q: "What is the future of work from home?",
+    options: [
+      "diminishing relevance in the workforce",
+      "a fundamental transformation in work dynamics",
+      "increased reliance on office spaces",
+      "limited technological advancements"
+    ],
+    ans: 1
+  },
+  {
+    q: "What is the primary reason for the comfort of a work-from-home environment?",
+    options: [
+      "strict schedules",
+      "increased commuting time",
+      "personalization",
+      "reduced productivity"
+    ],
+    ans: 2
+  },
+  {
+    q: "What has work from home revolutionized?",
+    options: [
+      "traditional work landscape",
+      "traditional office hours",
+      "employee benefits",
+      "global travel industry"
+    ],
+    ans: 0
+  },
+  {
+    q: "Which of the following is a potential downside of remote work arrangements?",
+    options: [
+      "reduced productivity",
+      "enhanced job satisfaction",
+      "improved communication systems",
+      "increased collaboration"
+    ],
+    ans: 0
+  },
+  {
+    q: "What is a significant challenge in implementing work from home?",
+    options: [
+      "technological advancements",
+      "redefined work-life balance",
+      "decreased flexibility",
+      "efficient communication systems."
+    ],
+    ans: 3
+  }
+];
+
+let index = 0;
+let score = 0;
+let timeLeft = 15;
+let timerInterval;
+
+const questionText = document.getElementById("question-text");
+const optionsList = document.getElementById("options-list");
+const feedback = document.getElementById("feedback");
+const correctAnswerDiv = document.getElementById("correct-answer");
+const nextBtn = document.getElementById("next-btn");
+const resultBox = document.getElementById("result-box");
+const scoreEl = document.getElementById("score");
+const totalEl = document.getElementById("total");
+const retryBtn = document.getElementById("retry-btn");
+const timerEl = document.getElementById("timer");
+const progressBar = document.getElementById("progress");
+const progressLabel = document.getElementById("progress-label");
+const optionLetters = ["A", "B", "C", "D"];
+
+function startTimer(){
+  clearInterval(timerInterval);
+  timeLeft = 15;
+  timerEl.textContent = "⏳ "+timeLeft+"s";
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    timerEl.textContent = "⏳ "+timeLeft+"s";
+    if(timeLeft  {
+    const btn = document.createElement("button");
+    btn.className = "option-btn";
+    btn.innerHTML = `${optionLetters[i]}${opt}`;
+    btn.onclick = () => handleAnswer(btn, i, currentQ.ans);
+    optionsList.appendChild(btn);
+  });
+  updateProgress();
+  startTimer();
+}
+
+function disableOptions(){
+  Array.from(optionsList.querySelectorAll("button")).forEach(b => b.disabled = true);
+}
+
+function handleAnswer(btn, selected, correct){
+  clearInterval(timerInterval);
+  disableOptions();
+  if(selected === correct){
+    btn.classList.add("correct");
+    feedback.style.color = "green";
+    feedback.textContent = "✅ Correct!";
+    score++;
+  } else {
+    btn.classList.add("wrong");
+    feedback.style.color = "red";
+    feedback.textContent = "❌ Wrong!";
+    showCorrectAnswer();
+  }
+  nextBtn.style.display = "inline-block";
+}
+
+function showCorrectAnswer(){
+  let correctOptIndex = quizData[index].ans;
+  let btns = document.querySelectorAll(".option-btn");
+  if(btns[correctOptIndex]) btns[correctOptIndex].classList.add("correct");
+  correctAnswerDiv.textContent = "Correct Answer: "+optionLetters[correctOptIndex]+") "+quizData[index].options[correctOptIndex];
+}
+
+function autoNextQuestion(){
+  index++;
+  if(index  {
+  index++;
+  if(index  {
+  index = 0;
+  score = 0;
+  resultBox.style.display = "none";
+  document.getElementById("question-box").style.display = "block";
+  loadQuestion();
+};
+
+loadQuestion();
+
+
